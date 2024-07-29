@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "SGA Mobile",
+    "slug": "sga-mobile",
+    "privacy": "public",
+    "owner": "marcospego",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "userInterfaceStyle": "automatic",
+    "version": "1.1.14",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#669C34"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "br.com.elw.sgamobile"
+    },
+    "android": {
+      "package": "br.com.elw.sgamobile",
+      "versionCode": 2,
+      "targetSdkVersion": 34
+    },
+    "description": "",
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "1630ce67-1085-4c6c-942b-55a54e18bdf4"
+      }
+    }
+  }
+}

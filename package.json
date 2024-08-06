@@ -39,6 +39,7 @@
     "expo-font": "~11.4.0",
     "expo-permissions": "~14.2.1",
     "expo-splash-screen": "~0.20.5",
+    "expo-status-bar": "~1.12.1",
     "expo-updates": "~0.18.19",
     "expo-web-browser": "~12.3.2",
     "fast-xml-parser": "^4.1.0",
@@ -55,10 +56,10 @@
     "react-native-reanimated": "~3.3.0",
     "react-native-safe-area-context": "4.6.3",
     "react-native-screens": "~3.22.0",
-    "react-native-web": "~0.19.6",
-    "expo-status-bar": "~1.12.1"
+    "react-native-web": "~0.19.6"
   },
   "devDependencies": {
+    "@babel/plugin-transform-private-methods": "^7.24.7",
     "babel-eslint": "^10.0.3",
     "babel-preset-expo": "^9.5.0",
     "eslint": "^6.6.0",

@@ -3,11 +3,15 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable global-require */
 import React, { useState, useEffect, useRef } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Audio } from 'expo-av';
+// import { useAudioPlayer } from 'expo-audio';
 import {
-  StyleSheet, Text, View, TouchableOpacity, Vibration, Alert,
-  Button,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Vibration,
+  Alert,
+  StatusBar,
 } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 
@@ -22,6 +26,7 @@ export default function SnakeGame() {
   const [food, setFood] = useState(INIT_FOOD);
   const [isGameOver, setIsGameOver] = useState(false);
   const intervalRef = useRef(null);
+
   const onGestureEvent = (event) => {
     const { translationX, translationY } = event.nativeEvent;
 
@@ -41,7 +46,9 @@ export default function SnakeGame() {
       }
     }
   };
+  // const victoryPlayer = useAudioPlayer(require('../assets/Sons/vitoria.mp3'));
 
+  // const defeatPlayer = useAudioPlayer(require('../assets/Sons/derrota.mp3'));
   const onHandlerStateChange = (event) => {
     if (event.nativeEvent.state === State.END) {
       // O gesto terminou
@@ -61,14 +68,17 @@ export default function SnakeGame() {
     head.y += direction.y;
     if (head.x === food.x && head.y === food.y) {
       newSnake.unshift(head);
-      setFood({ x: Math.floor(Math.random() * BOARD_SIZE), y: Math.floor(Math.random() * BOARD_SIZE) });
-      playSound(require('../assets/Sons/vitoria.mp3'));
+      setFood({
+        x: Math.floor(Math.random() * BOARD_SIZE),
+        y: Math.floor(Math.random() * BOARD_SIZE),
+      });
+      // playSound('victory');
     } else {
       newSnake.pop();
       if (isCollision(head)) {
         setIsGameOver(true);
         clearInterval(intervalRef.current);
-        playSound(require('../assets/Sons/derrota.mp3'));
+        // playSound('defeat');
         Alert.alert('Game Over', 'The snake collided!');
       } else {
         newSnake.unshift(head);
@@ -88,13 +98,19 @@ export default function SnakeGame() {
     }
     return false;
   };
+  // const playSound = (type) => {
+  //   if (type === 'victory') {
+  //     victoryPlayer.seekTo(0);
+  //     victoryPlayer.play();
+  //   }
 
-  async function playSound(soundFile) {
-    const { sound } = await Audio.Sound.createAsync(soundFile);
-    await sound.playAsync();
-    Vibration.vibrate();
-  }
+  //   if (type === 'defeat') {
+  //     defeatPlayer.seekTo(0);
+  //     defeatPlayer.play();
+  //   }
 
+  //   Vibration.vibrate();
+  // };
   const handleReset = () => {
     setSnake(INIT_SNAKE);
     setDirection(INIT_DIRECTION);
@@ -110,7 +126,6 @@ export default function SnakeGame() {
         onHandlerStateChange={onHandlerStateChange}
       >
         <View style={styles.container}>
-
           <Text style={styles.title}>Jogo da Minhoca</Text>
           <View style={styles.board}>
             {Array.from({ length: BOARD_SIZE }).map((_, row) => (
@@ -120,7 +135,8 @@ export default function SnakeGame() {
                     key={col}
                     style={[
                       styles.cell,
-                      snake.some((segment) => segment.x === col && segment.y === row) && styles.snake,
+                      snake.some((segment) => segment.x === col && segment.y === row) &&
+                        styles.snake,
                       food.x === col && food.y === row && styles.food,
                     ]}
                   />
@@ -129,30 +145,18 @@ export default function SnakeGame() {
             ))}
           </View>
           <View style={styles.controls}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => setDirection({ x: 0, y: -1 })}
-              >
+            <TouchableOpacity style={styles.button} onPress={() => setDirection({ x: 0, y: -1 })}>
               <Text style={styles.resetButtonText}>Up</Text>
             </TouchableOpacity>
             <View style={styles.controlRow}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => setDirection({ x: -1, y: 0 })}
-              >
+              <TouchableOpacity style={styles.button} onPress={() => setDirection({ x: -1, y: 0 })}>
                 <Text style={styles.resetButtonText}>Left</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => setDirection({ x: 1, y: 0 })}
-              >
+              <TouchableOpacity style={styles.button} onPress={() => setDirection({ x: 1, y: 0 })}>
                 <Text style={styles.resetButtonText}>Right</Text>
               </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => setDirection({ x: 0, y: 1 })}
-              >
+            <TouchableOpacity style={styles.button} onPress={() => setDirection({ x: 0, y: 1 })}>
               <Text style={styles.resetButtonText}>Down</Text>
             </TouchableOpacity>
           </View>

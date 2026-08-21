@@ -1,7 +1,7 @@
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/no-named-as-default */
 import * as React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Tetris from '../Jogos/Tetris';
@@ -9,23 +9,18 @@ import JogoDaVelhaScreen from '../Jogos/JogoVelha';
 import SnakeGameScreen from '../Jogos/SnakeGame';
 import Home from '../Home/TelaHome';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 function Homes() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="home" component={Home} options={{ headerShown: false }} />
-
     </Stack.Navigator>
-  )
+  );
 }
 function TetrisStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Jogo-Do-Tetris"
-        component={Tetris}
-        options={{ title: 'Tetris' }}
-      />
+      <Stack.Screen name="Jogo-Do-Tetris" component={Tetris} options={{ title: 'Tetris' }} />
     </Stack.Navigator>
   );
 }
@@ -58,21 +53,14 @@ export default function AppNavigator() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={Homes} options={{ headerShown: false }} />
+
           <Stack.Screen
             name="JogoDaVelha"
             component={JogoDaVelhaStack}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
-            name="Tetris"
-            component={TetrisStack}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Home"
-            component={Homes}
-            options={{ headerShown: false }}
-          />
+          <Stack.Screen name="Tetris" component={TetrisStack} options={{ headerShown: false }} />
           <Stack.Screen
             name="SnakeGame"
             component={SnakeGameStack}

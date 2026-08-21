@@ -4,20 +4,28 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable global-require */
 import React, { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Audio } from 'expo-av';
-import {
-  StyleSheet, Text, View, TouchableOpacity, Vibration,
-} from 'react-native';
+// import { useAudioPlayer } from 'expo-audio';
+import { StyleSheet, Text, View, TouchableOpacity, Vibration, StatusBar } from 'react-native';
 
 export default function JogoVelha() {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [isXNext, setIsXNext] = useState(true);
-  async function playSound(soundFile) {
-    const { sound } = await Audio.Sound.createAsync(soundFile);
-    await sound.playAsync();
-    Vibration.vibrate();
-  }
+  // const victoryPlayer = useAudioPlayer(require('../assets/Sons/vitoria.mp3'));
+
+  // const defeatPlayer = useAudioPlayer(require('../assets/Sons/derrota.mp3'));
+  // const playSound = (type) => {
+  //   if (type === 'victory') {
+  //     victoryPlayer.seekTo(0);
+  //     victoryPlayer.play();
+  //   }
+
+  //   if (type === 'defeat') {
+  //     defeatPlayer.seekTo(0);
+  //     defeatPlayer.play();
+  //   }
+
+  //   Vibration.vibrate();
+  // };
   const handlePress = (index) => {
     if (board[index] || calculateWinner(board)) {
       return;
@@ -42,8 +50,7 @@ export default function JogoVelha() {
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        // se vitoria fazer som de vitoria
-        playSound(require('../assets/Sons/vitoria.mp3'));
+        // playSound('victory');
         return squares[a];
       }
     }
@@ -53,20 +60,14 @@ export default function JogoVelha() {
   const winner = calculateWinner(board);
   // se todos os campos do array forem null Velha som de derrota
 
-  let status = winner
-    ? `Vencedor: ${winner}`
-    : `Próximo jogador: ${isXNext ? 'X' : 'O'}`;
+  let status = winner ? `Vencedor: ${winner}` : `Próximo jogador: ${isXNext ? 'X' : 'O'}`;
   if (board.every((element) => element !== null)) {
-    playSound(require('../assets/Sons/derrota.mp3'));
-    // mudaça de status para Velha
+    // playSound('defeat');
     status = 'Ichi Deu Velha';
   }
 
   const renderSquare = (index) => (
-    <TouchableOpacity
-      style={styles.square}
-      onPress={() => handlePress(index)}
-    >
+    <TouchableOpacity style={styles.square} onPress={() => handlePress(index)}>
       <Text style={styles.squareText}>{board[index]}</Text>
     </TouchableOpacity>
   );

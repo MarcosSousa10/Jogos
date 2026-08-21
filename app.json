@@ -1,8 +1,7 @@
 {
   "expo": {
-    "name": "SGA Mobile",
+    "name": "Marcos Sousa",
     "slug": "sga-mobile",
-    "privacy": "public",
     "owner": "marcospego",
     "platforms": [
       "ios",
@@ -13,11 +12,7 @@
     "version": "1.1.14",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#669C34"
-    },
+ 
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -47,7 +42,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "1630ce67-1085-4c6c-942b-55a54e18bdf4"
+        "projectId": "fcc45e03-c471-4250-9eb0-58e9a742f477"
       }
     }
   }
